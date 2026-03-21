@@ -35,3 +35,12 @@ cd DoubleTrouble
 `./mvnw javafx:run`
 ### Windows
 `mvnw.cmd javafx:run`
+
+## How to Play 
+Before the game starts all tiles will be black. This is when you can change the game options like the strategy used and who goes first. 
+
+When you are ready to begin you may press "Start Game".
+
+Once the game begins you can choose as many tiles of the same color as you want. When you are done with your selection press the "End Turn" button.
+You will notice the computer will quickly take its turn and update the board. The game then continues until either you, or the computer, click the last button. 
+Depending on who won there will be a winning message at the top of the screen. At this point you are free to change the game options and then click "Start Game" to play again.
