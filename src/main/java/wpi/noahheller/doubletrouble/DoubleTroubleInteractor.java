@@ -98,10 +98,6 @@ public class DoubleTroubleInteractor {
         return computerMoves;
     }
 
-    public void handleGameStart() {
-        model.setStrategySelectionEnabled(false);
-    }
-
     public void runComputerTurn(Boolean[] buttonStates, GameStrategy strategy) {
         Task<List<Integer>> computerMoves = getComputerTask(buttonStates, strategy);
         computerExecutor.submit(computerMoves);
