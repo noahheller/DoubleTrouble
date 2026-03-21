@@ -33,7 +33,7 @@ public class DoubleTroubleInteractor {
         model.setMessage(Constants.WELCOME_MESSAGE);
         model.setSelectedColor(null);
         boolean playerStarts = random.nextBoolean();
-        model.setStrategySelectionEnabled(playerStarts);
+        model.setStrategySelectionEnabled(false);
         model.setPlayersTurn(playerStarts);
         for (int i = 0; i < Constants.BUTTON_COUNT; i++) {
             model.setColorButtonEnabled(i, true);
@@ -58,6 +58,7 @@ public class DoubleTroubleInteractor {
     private void updateBoardFromComputer(List<Integer> buttonIndexes) {
         if (buttonIndexes.isEmpty()) {
             model.messageProperty().set(Constants.PLAYER_WIN_MESSAGE);
+            model.setStrategySelectionEnabled(true);
             return;
         }
         for (int i : buttonIndexes) {
@@ -74,6 +75,7 @@ public class DoubleTroubleInteractor {
         }
         if (gameOver) {
             model.messageProperty().set(Constants.COMPUTER_WIN_MESSAGE);
+            model.setStrategySelectionEnabled(true);
         }
     }
 
