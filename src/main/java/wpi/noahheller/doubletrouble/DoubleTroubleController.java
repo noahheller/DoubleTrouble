@@ -4,12 +4,16 @@ import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class DoubleTroubleController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class DoubleTroubleController implements Initializable {
     @FXML
     private Button greenButton1;
     @FXML
@@ -71,8 +75,8 @@ public class DoubleTroubleController {
         interactor = new DoubleTroubleInteractor(model);
     }
 
-    @FXML
-    public void initialize() {
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
         initUI();
     }
 
