@@ -60,6 +60,8 @@ public class DoubleTroubleController {
     private ChoiceBox<GameStrategy> compGameStrategy;
     @FXML
     private Label message;
+    @FXML
+    private CheckBox playerGoesFirst;
 
     private final DoubleTroubleModel model;
     private final DoubleTroubleInteractor interactor;
@@ -87,6 +89,8 @@ public class DoubleTroubleController {
             );
         }
         model.gameStrategyProperty().bind(compGameStrategy.selectionModelProperty());
+        model.playerGoesFirst().bind(playerGoesFirst.selectedProperty());
+        playerGoesFirst.disableProperty().bind(model.gameOptionsEnabledProperty().not());
         ObservableList<GameStrategy> strategies = FXCollections.observableArrayList(
                 new RandomStrategy(),
                 new OptimalStrategy()
@@ -94,9 +98,12 @@ public class DoubleTroubleController {
         compGameStrategy.setItems(strategies);
         compGameStrategy.getSelectionModel().select(0);
         compGameStrategy.setConverter(new ClassNameStringConverter<>());
-        compGameStrategy.disableProperty().bind(model.strategySelectionEnabledProperty().not());
+        compGameStrategy.disableProperty().bind(model.gameOptionsEnabledProperty().not());
         message.textProperty().bind(model.messageProperty());
         compGameStrategy.styleProperty().bind(
+                Bindings.concat("-fx-font-size: ", root.widthProperty().divide(Constants.FONT_WIDTH_SCALING_FACTOR))
+        );
+        playerGoesFirst.styleProperty().bind(
                 Bindings.concat("-fx-font-size: ", root.widthProperty().divide(Constants.FONT_WIDTH_SCALING_FACTOR))
         );
         endTurnButton.styleProperty().bind(

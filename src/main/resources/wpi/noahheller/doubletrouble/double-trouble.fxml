@@ -40,14 +40,15 @@
                    <Button fx:id="redButton5" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="redButton" stylesheets="@dtButton.css" />
                </children></HBox>
          </children>
-         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </padding>
       </VBox>
    </center>
    <bottom>
       <HBox alignment="CENTER" prefWidth="640.0" spacing="25.0" BorderPane.alignment="CENTER">
          <children>
+            <CheckBox fx:id="playerGoesFirst" mnemonicParsing="false" text="Go First">
+               <font>
+                  <Font size="18.0" />
+               </font></CheckBox>
              <Button fx:id="endTurnButton" alignment="CENTER" mnemonicParsing="false" text="End Turn">
                  <font>
                      <Font size="18.0" />

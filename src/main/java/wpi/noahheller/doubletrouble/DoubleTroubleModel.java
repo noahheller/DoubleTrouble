@@ -1,10 +1,7 @@
 package wpi.noahheller.doubletrouble;
 
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.StringExpression;
 import javafx.beans.property.*;
 import javafx.beans.value.ObservableBooleanValue;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.SingleSelectionModel;
 
 import java.util.Arrays;
@@ -13,9 +10,10 @@ public class DoubleTroubleModel {
     private final BooleanProperty[] colorButtonEnabled;
     private final BooleanProperty playersTurn = new SimpleBooleanProperty(true);
     private final ObjectProperty<ButtonColor> selectedColorProperty = new SimpleObjectProperty<>(null);
-    private final ObjectProperty<SingleSelectionModel<GameStrategy>> gameStrategyProperty =new SimpleObjectProperty<>(null);
-    private final BooleanProperty strategySelectionEnabledProperty = new SimpleBooleanProperty(true);
+    private final ObjectProperty<SingleSelectionModel<GameStrategy>> gameStrategyProperty = new SimpleObjectProperty<>(null);
+    private final BooleanProperty gameOptionsEnabledProperty = new SimpleBooleanProperty(true);
     private final StringProperty messageProperty = new SimpleStringProperty(Constants.WELCOME_MESSAGE);
+    private final BooleanProperty playerGoesFirst = new SimpleBooleanProperty(false);
 
     public DoubleTroubleModel() {
         colorButtonEnabled = new SimpleBooleanProperty[Constants.BUTTON_COUNT];
@@ -72,25 +70,40 @@ public class DoubleTroubleModel {
     Boolean[] buttonStates() {
         return Arrays.stream(colorButtonEnabled).map(ObservableBooleanValue::get).toArray(Boolean[]::new);
     }
-    BooleanProperty strategySelectionEnabledProperty() {
-        return strategySelectionEnabledProperty;
+
+    BooleanProperty gameOptionsEnabledProperty() {
+        return gameOptionsEnabledProperty;
     }
 
-    boolean isStrategySelectionEnabled() {
-        return strategySelectionEnabledProperty.get();
+    boolean aresGameOptionsEnabled() {
+        return gameOptionsEnabledProperty.get();
     }
 
-    void setStrategySelectionEnabled(boolean enabled) {
-        strategySelectionEnabledProperty.set(enabled);
+    void setGameOptionsEnabled(boolean enabled) {
+        gameOptionsEnabledProperty.set(enabled);
+    }
+
+    BooleanProperty playerGoesFirst() {
+        return playerGoesFirst;
+    }
+
+    boolean doesPlayerGoFirst() {
+        return playerGoesFirst.get();
+    }
+
+    void setPlayerGoesFirst(boolean goesFirst) {
+        playerGoesFirst.set(goesFirst);
     }
 
     StringProperty messageProperty() {
         return messageProperty;
     }
+
     String getMessage() {
         return messageProperty.get();
     }
-    void setMessage(String message){
+
+    void setMessage(String message) {
         messageProperty.set(message);
     }
 

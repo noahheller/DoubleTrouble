@@ -11,7 +11,6 @@ import java.util.concurrent.TimeUnit;
 public class DoubleTroubleInteractor {
     private final DoubleTroubleModel model;
     private final ExecutorService computerExecutor = Executors.newSingleThreadExecutor();
-    private final Random random = new Random();
 
     public DoubleTroubleInteractor(DoubleTroubleModel model) {
         this.model = model;
@@ -32,8 +31,8 @@ public class DoubleTroubleInteractor {
     public void resetGame() {
         model.setMessage(Constants.WELCOME_MESSAGE);
         model.setSelectedColor(null);
-        boolean playerStarts = random.nextBoolean();
-        model.setStrategySelectionEnabled(false);
+        boolean playerStarts = model.doesPlayerGoFirst();
+        model.setGameOptionsEnabled(false);
         model.setPlayersTurn(playerStarts);
         for (int i = 0; i < Constants.BUTTON_COUNT; i++) {
             model.setColorButtonEnabled(i, true);
@@ -57,8 +56,8 @@ public class DoubleTroubleInteractor {
 
     private void updateBoardFromComputer(List<Integer> buttonIndexes) {
         if (buttonIndexes.isEmpty()) {
-            model.messageProperty().set(Constants.PLAYER_WIN_MESSAGE);
-            model.setStrategySelectionEnabled(true);
+            model.setMessage(Constants.PLAYER_WIN_MESSAGE);
+            model.setGameOptionsEnabled(true);
             return;
         }
         for (int i : buttonIndexes) {
@@ -74,8 +73,8 @@ public class DoubleTroubleInteractor {
             }
         }
         if (gameOver) {
-            model.messageProperty().set(Constants.COMPUTER_WIN_MESSAGE);
-            model.setStrategySelectionEnabled(true);
+            model.setMessage(Constants.COMPUTER_WIN_MESSAGE);
+            model.setGameOptionsEnabled(true);
         }
     }
 
