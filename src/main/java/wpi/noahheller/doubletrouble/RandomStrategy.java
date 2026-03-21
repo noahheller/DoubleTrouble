@@ -3,6 +3,16 @@ package wpi.noahheller.doubletrouble;
 import java.util.*;
 import java.util.stream.IntStream;
 
+/**
+ * Algorithm goes as follows:
+ * <ui>
+ * <li>Picks a random color</li>
+ * <li>checks if there are buttons available in that color</li>
+ * <li>if so, return a random number of those buttons</li>
+ * <li>otherwise repeat until not colors are left</li>
+ * <li>If there are  colors left then the Algorithm has lost</li>
+ * </ui>
+ */
 public class RandomStrategy implements GameStrategy {
 
     private final Random random = new Random();

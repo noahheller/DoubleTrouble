@@ -2,6 +2,10 @@ package wpi.noahheller.doubletrouble;
 
 import java.util.*;
 
+/**
+ * Algorithm that tries to make the NIM-sum = 0 at then end of its turn.
+ * The NIM-sum is found by Xor-ing the number of tiles available in each pile.
+ */
 public class OptimalStrategy implements GameStrategy {
 
     private final RandomStrategy backup = new RandomStrategy();
@@ -33,6 +37,16 @@ public class OptimalStrategy implements GameStrategy {
         return backup.pickTiles(tileStates);
     }
 
+    /**
+     * Chooses {@code limit} number of buttons from {@code tileState} array that are available.
+     *<br>
+     * It is up to the color to unsure {@code limit} number is available,
+     * otherwise it will return maximum number of tileStates that are available
+     * @param tileStates Complete list of tiles/buttons. Buttons that are available will have a value of true
+     * @param color      which color the computer is choosing
+     * @param limit      how many of said color we are choosing
+     * @return List of indices of the buttons/tiles we are clicking
+     */
     private List<Integer> collectIndices(Boolean[] tileStates, ButtonColor color, int limit) {
         List<Integer> result = new ArrayList<>(limit);
         for (int j = color.getMinButtonIndex(); j <= color.getMaxButtonIndex() && result.size() < limit; j++) {
