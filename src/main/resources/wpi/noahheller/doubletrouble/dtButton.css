@@ -1,0 +1,16 @@
+.button {
+    -fx-border-color: black;
+}
+.redButton{
+    -fx-background-color: red;
+}
+.button:disabled{
+    -fx-background-color: black;
+    -fx-opacity: 1;
+}
+.greenButton{
+    -fx-background-color: green;
+}
+.yellowButton{
+    -fx-background-color: yellow;
+}
