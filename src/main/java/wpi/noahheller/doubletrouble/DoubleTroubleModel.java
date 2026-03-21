@@ -20,7 +20,7 @@ public class DoubleTroubleModel {
     public DoubleTroubleModel() {
         colorButtonEnabled = new SimpleBooleanProperty[Constants.BUTTON_COUNT];
         for (int i = 0; i < Constants.BUTTON_COUNT; i++) {
-            colorButtonEnabled[i] = new SimpleBooleanProperty(true);
+            colorButtonEnabled[i] = new SimpleBooleanProperty(false);
         }
     }
 
@@ -84,13 +84,14 @@ public class DoubleTroubleModel {
         strategySelectionEnabledProperty.set(enabled);
     }
 
-    public StringProperty messageProperty() {
+    StringProperty messageProperty() {
         return messageProperty;
     }
-    public String getMessage() {
+    String getMessage() {
         return messageProperty.get();
     }
-    public void setMessage(String message){
+    void setMessage(String message){
         messageProperty.set(message);
     }
+
 }

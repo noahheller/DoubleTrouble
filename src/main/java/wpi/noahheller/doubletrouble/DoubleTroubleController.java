@@ -3,17 +3,11 @@ package wpi.noahheller.doubletrouble;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.util.StringConverter;
-
-import java.util.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class DoubleTroubleController {
     @FXML
@@ -47,7 +41,7 @@ public class DoubleTroubleController {
     @FXML
     private Button redButton5;
     @FXML
-    private Button resetButton;
+    private Button startButton;
     @FXML
     private Button endTurnButton;
     @FXML
@@ -69,7 +63,6 @@ public class DoubleTroubleController {
 
     private final DoubleTroubleModel model;
     private final DoubleTroubleInteractor interactor;
-    ExecutorService computerExecutor = Executors.newSingleThreadExecutor();
 
     public DoubleTroubleController() {
         model = new DoubleTroubleModel();
@@ -109,7 +102,7 @@ public class DoubleTroubleController {
         endTurnButton.styleProperty().bind(
                 Bindings.concat("-fx-font-size: ", root.widthProperty().divide(Constants.FONT_WIDTH_SCALING_FACTOR))
         );
-        resetButton.styleProperty().bind(
+        startButton.styleProperty().bind(
                 Bindings.concat("-fx-font-size: ", root.widthProperty().divide(Constants.FONT_WIDTH_SCALING_FACTOR))
         );
         message.styleProperty().bind(
@@ -120,7 +113,7 @@ public class DoubleTroubleController {
         row3.spacingProperty().bind(root.widthProperty().divide(Constants.SPACING_WIDTH_SCALING_FACTOR));
         row4.spacingProperty().bind(root.widthProperty().divide(Constants.SPACING_WIDTH_SCALING_FACTOR));
         row5.spacingProperty().bind(root.widthProperty().divide(Constants.SPACING_WIDTH_SCALING_FACTOR));
-        resetButton.setOnMouseClicked(event -> interactor.resetButtons());
+        startButton.setOnMouseClicked(event -> interactor.resetGame());
         endTurnButton.setOnMouseClicked(event -> {
             //lock button states cant be updated via GUI
             boolean success = interactor.endTurn();
@@ -130,8 +123,7 @@ public class DoubleTroubleController {
             //grab buttons states still in UI thread
             Boolean[] buttonStates = model.buttonStates();
             GameStrategy strategy = model.getGameStrategy();
-            Task<List<Integer>> computerMoves = interactor.getComputerTask(buttonStates, strategy);
-            computerExecutor.submit(computerMoves);
+            interactor.runComputerTurn(buttonStates, strategy);
         });
     }
 }

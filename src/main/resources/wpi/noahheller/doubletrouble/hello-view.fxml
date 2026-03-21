@@ -53,7 +53,7 @@
                      <Font size="18.0" />
                  </font>
              </Button>
-            <Button fx:id="resetButton" alignment="CENTER" mnemonicParsing="false" text="Reset Game">
+            <Button fx:id="startButton" alignment="CENTER" mnemonicParsing="false" text="Start Game">
                <font>
                   <Font size="18.0" />
                </font>

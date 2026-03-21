@@ -2,12 +2,15 @@ package wpi.noahheller.doubletrouble;
 
 import javafx.concurrent.Task;
 
-import java.awt.*;
 import java.util.*;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class DoubleTroubleInteractor {
     private final DoubleTroubleModel model;
+    ExecutorService computerExecutor = Executors.newSingleThreadExecutor();
+    private final Random random = new Random();
 
     public DoubleTroubleInteractor(DoubleTroubleModel model) {
         this.model = model;
@@ -25,17 +28,21 @@ public class DoubleTroubleInteractor {
         }
     }
 
-    public void resetButtons() {
-        if (!model.isPlayersTurn()) {
-            return;
-        }
-        for (int i = 0; i < Constants.BUTTON_COUNT; i++) {
-            model.setColorButtonEnabled(i, true);
-        }
-        model.setPlayersTurn(true);
+    public void resetGame() {
         model.setMessage(Constants.WELCOME_MESSAGE);
         model.setSelectedColor(null);
         model.setStrategySelectionEnabled(true);
+        boolean playerStarts = random.nextBoolean();
+        model.setPlayersTurn(playerStarts);
+        for (int i = 0; i < Constants.BUTTON_COUNT; i++) {
+            model.setColorButtonEnabled(i, true);
+        }
+        if(!playerStarts){
+            Boolean[] buttonStates = model.buttonStates();
+            GameStrategy strategy = model.getGameStrategy();
+            Task<List<Integer>> computerMoves = getComputerTask(buttonStates, strategy);
+            computerExecutor.submit(computerMoves);
+        }
     }
 
     public boolean endTurn() {
@@ -43,7 +50,6 @@ public class DoubleTroubleInteractor {
             return false;
         }
         model.setPlayersTurn(false);
-        model.setStrategySelectionEnabled(false);
         model.setSelectedColor(null);
         return true;
     }
@@ -72,14 +78,13 @@ public class DoubleTroubleInteractor {
     }
 
     private void endComputerTurn() {
-        model.setStrategySelectionEnabled(false);
         model.setPlayersTurn(true);
     }
 
     private List<Integer> chooseComputerMoves(Boolean[] buttonStates, GameStrategy strategy) {
         return strategy.pickTiles(buttonStates);
     }
-    public Task<List<Integer>> getComputerTask(Boolean[] buttonStates, GameStrategy gameStrategy) {
+    private Task<List<Integer>> getComputerTask(Boolean[] buttonStates, GameStrategy gameStrategy) {
         Task<List<Integer>> computerMoves = new Task<>() {
             @Override
             protected List<Integer> call() {
@@ -91,5 +96,14 @@ public class DoubleTroubleInteractor {
             endComputerTurn();
         });
         return computerMoves;
+    }
+
+    public void handleGameStart() {
+        model.setStrategySelectionEnabled(false);
+    }
+
+    public void runComputerTurn(Boolean[] buttonStates, GameStrategy strategy) {
+        Task<List<Integer>> computerMoves = getComputerTask(buttonStates, strategy);
+        computerExecutor.submit(computerMoves);
     }
 }
