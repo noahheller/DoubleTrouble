@@ -126,4 +126,7 @@ public class DoubleTroubleController {
             interactor.runComputerTurn(buttonStates, strategy);
         });
     }
+    public void shutdown(){
+        interactor.shutdown();
+    }
 }
