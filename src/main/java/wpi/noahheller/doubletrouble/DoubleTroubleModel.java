@@ -3,6 +3,7 @@ package wpi.noahheller.doubletrouble;
 import javafx.beans.property.*;
 import javafx.beans.value.ObservableBooleanValue;
 import javafx.scene.control.SingleSelectionModel;
+import wpi.noahheller.doubletrouble.logic.GameStrategy;
 
 import java.util.Arrays;
 
@@ -14,6 +15,7 @@ public class DoubleTroubleModel {
     private final BooleanProperty gameOptionsEnabledProperty = new SimpleBooleanProperty(true);
     private final StringProperty messageProperty = new SimpleStringProperty(Constants.WELCOME_MESSAGE);
     private final BooleanProperty playerGoesFirst = new SimpleBooleanProperty(false);
+    private final DoubleProperty scalingWidth = new SimpleDoubleProperty();
 
     public DoubleTroubleModel() {
         colorButtonEnabled = new SimpleBooleanProperty[Constants.BUTTON_COUNT];
@@ -23,7 +25,7 @@ public class DoubleTroubleModel {
     }
 
 
-    BooleanProperty colorButtonEnabled(int button) {
+    public BooleanProperty colorButtonEnabled(int button) {
         return colorButtonEnabled[button];
     }
 
@@ -35,7 +37,7 @@ public class DoubleTroubleModel {
         colorButtonEnabled(button).set(enabled);
     }
 
-    BooleanProperty playersTurn() {
+    public BooleanProperty playersTurn() {
         return playersTurn;
     }
 
@@ -47,7 +49,7 @@ public class DoubleTroubleModel {
         playersTurn.set(isPlayersTurn);
     }
 
-    ObjectProperty<ButtonColor> selectedColorProperty() {
+    public ObjectProperty<ButtonColor> selectedColorProperty() {
         return selectedColorProperty;
     }
 
@@ -59,7 +61,7 @@ public class DoubleTroubleModel {
         selectedColorProperty.set(color);
     }
 
-    ObjectProperty<SingleSelectionModel<GameStrategy>> gameStrategyProperty() {
+    public ObjectProperty<SingleSelectionModel<GameStrategy>> gameStrategyProperty() {
         return gameStrategyProperty;
     }
 
@@ -71,7 +73,7 @@ public class DoubleTroubleModel {
         return Arrays.stream(colorButtonEnabled).map(ObservableBooleanValue::get).toArray(Boolean[]::new);
     }
 
-    BooleanProperty gameOptionsEnabledProperty() {
+    public BooleanProperty gameOptionsEnabledProperty() {
         return gameOptionsEnabledProperty;
     }
 
@@ -83,7 +85,7 @@ public class DoubleTroubleModel {
         gameOptionsEnabledProperty.set(enabled);
     }
 
-    BooleanProperty playerGoesFirst() {
+    public BooleanProperty playerGoesFirst() {
         return playerGoesFirst;
     }
 
@@ -95,7 +97,7 @@ public class DoubleTroubleModel {
         playerGoesFirst.set(goesFirst);
     }
 
-    StringProperty messageProperty() {
+    public StringProperty messageProperty() {
         return messageProperty;
     }
 
@@ -105,6 +107,10 @@ public class DoubleTroubleModel {
 
     void setMessage(String message) {
         messageProperty.set(message);
+    }
+
+    public DoubleProperty scalingWidth() {
+        return scalingWidth;
     }
 
 }
