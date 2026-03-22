@@ -1,4 +1,4 @@
-package wpi.noahheller.doubletrouble;
+package wpi.noahheller.doubletrouble.logic;
 
 import java.util.List;
 

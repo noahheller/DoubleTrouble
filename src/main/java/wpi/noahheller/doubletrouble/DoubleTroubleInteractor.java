@@ -1,12 +1,11 @@
 package wpi.noahheller.doubletrouble;
 
 import javafx.concurrent.Task;
+import wpi.noahheller.doubletrouble.logic.GameStrategy;
 
-import java.util.*;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 public class DoubleTroubleInteractor {
     private final DoubleTroubleModel model;

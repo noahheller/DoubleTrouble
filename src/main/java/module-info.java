@@ -7,4 +7,8 @@ module wpi.noahheller.doubletrouble {
 
     opens wpi.noahheller.doubletrouble to javafx.fxml;
     exports wpi.noahheller.doubletrouble;
+    exports wpi.noahheller.doubletrouble.views;
+    opens wpi.noahheller.doubletrouble.views to javafx.fxml;
+    exports wpi.noahheller.doubletrouble.logic;
+    opens wpi.noahheller.doubletrouble.logic to javafx.fxml;
 }

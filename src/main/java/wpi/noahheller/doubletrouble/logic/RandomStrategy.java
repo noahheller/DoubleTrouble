@@ -1,4 +1,6 @@
-package wpi.noahheller.doubletrouble;
+package wpi.noahheller.doubletrouble.logic;
+
+import wpi.noahheller.doubletrouble.ButtonColor;
 
 import java.util.*;
 import java.util.stream.IntStream;
