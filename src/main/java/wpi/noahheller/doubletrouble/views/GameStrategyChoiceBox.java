@@ -13,18 +13,17 @@ public class GameStrategyChoiceBox extends ChoiceBox<GameStrategy> {
     private final ObservableList<GameStrategy> strategies;
 
     public GameStrategyChoiceBox(DoubleTroubleModel model) {
-        ChoiceBox<GameStrategy> compGameStrategy = new ChoiceBox<>();
-        model.gameStrategyProperty().bind(compGameStrategy.selectionModelProperty());
+        model.gameStrategyProperty().bind(this.selectionModelProperty());
         strategies = FXCollections.observableArrayList(
                 new RandomStrategy(),
                 new OptimalStrategy()
         );
-        compGameStrategy.setItems(strategies);
-        compGameStrategy.getSelectionModel().select(0);
-        compGameStrategy.setConverter(new ClassNameStringConverter<>());
-        compGameStrategy.disableProperty().bind(model.gameOptionsEnabledProperty().not());
+        this.setItems(strategies);
+        this.getSelectionModel().select(0);
+        this.setConverter(new ClassNameStringConverter<>());
+        this.disableProperty().bind(model.gameOptionsEnabledProperty().not());
 
-        compGameStrategy.styleProperty().bind(
+        this.styleProperty().bind(
                 Bindings.concat("-fx-font-size: ", model.scalingWidth().divide(Constants.FONT_WIDTH_SCALING_FACTOR))
         );
     }
